@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { getData } from "./data/dataRequest.js";
-import {
-  initLocalData,
-  setLocalData,
-  clearLocalData
-} from "./storage/localStorage.js";
+import { initLocalData, clearLocalData } from "./storage/localStorage.js";
 
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({

@@ -17,34 +17,27 @@ let defaultObject = {
 
 export const initLocalData = type => {
   this.storage = { name: "fbcomp-" + type };
-
-  this.storage.storageObject = localStorage.getItem(this.storage.name);
-  if (!this.storage.fbUserData) {
-    //console.log("building local storage");
-    localStorage.setItem(
-      this.storage.name,
-      JSON.stringify(this.storage.fbUserData)
-    );
-    //setLocalValue("type", type);
+  getLocalData();
+  if (!this.storage.storageObject) {
+    setLocalData(defaultObject);
   }
-  //console.log("preset data");
+
   return getLocalData();
 };
 
 export const setLocalData = data => {
-  //localstorage
   localStorage.setItem(this.storage.name, JSON.stringify(data));
-  //  console.log("stored");
   return getLocalData();
 };
 
 export const clearLocalData = () => {
-  localStorage.setItem(this.storage.name, "");
-  //  console.log("cleared", this.storage);
+  setLocalData(defaultObject);
   return getLocalData();
 };
 
 export const getLocalData = () => {
-  this.storage.fbUserData = localStorage.getItem(this.storage.name);
+  this.storage.storageObject = JSON.parse(
+    localStorage.getItem(this.storage.name)
+  );
   return this.storage;
 };
