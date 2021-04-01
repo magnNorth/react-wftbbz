@@ -1,48 +1,73 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { getData } from "./data/dataRequest.js";
-import { initLocalData, clearLocalData } from "./storage/localStorage.js";
+import {
+  initLocalData,
+  clearLocalData,
+  getLocalData,
+  setLocalData
+} from "./storage/localStorage.js";
 
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     request: false,
     data: null,
-    storeage: false
+    storeage: false,
+    store: null
   });
 
   useEffect(() => {
+    //load up local storage prefs
     if (!dataAcq.storeage) {
-      console.log("store");
+      initLocalData(dataattr.options);
       setDataAcq({
         request: dataAcq.request,
         data: dataAcq.data,
-        storeage: initLocalData(dataattr.type)
+        storeage: true,
+        store: getLocalData()
       });
     }
-    if (!dataAcq.request) {
-      console.log("request");
-      getData().then(d => {
-        setDataAcq({ request: true, data: d });
-      });
-    }
-  });
 
-  //setLocalData("words")
+    if (!dataAcq.request && dataAcq.storeage) {
+      //fetch Funnelback
+      getData(dataAcq.store).then(d => {
+        setDataAcq({
+          request: true,
+          data: d,
+          storeage: dataAcq.storage,
+          store: dataAcq.store
+        });
+      });
+    }
+    //console.log("load", dataAcq.store);
+  });
 
   function createMarkup() {
     return { __html: dataAcq.data };
   }
 
-  function clearlocal(e) {
-    //  console.log("clear");
+  function clearlocal() {
+    //console.log("cleared");
     clearLocalData();
+  }
+
+  function setlocal(e) {
+    dataAcq.store.userPref = [e];
+    setLocalData(dataAcq.store);
   }
 
   return setDataAcq !== false ? (
     <div>
       <h1>Funnelback react component</h1>
+      <button
+        onClick={e => {
+          setlocal("an option");
+        }}
+        value={"data"}
+      >
+        setlocal
+      </button>
       <button onClick={clearlocal}>Clear</button>
-
       <div dangerouslySetInnerHTML={createMarkup()} />
     </div>
   ) : (

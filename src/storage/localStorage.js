@@ -1,27 +1,18 @@
-let defaultObject = {
-  type: null,
-  request: [
-    {
-      collection: null,
-      sort: null,
-      query: null,
-      profile: null
-    }
-  ],
-  userPref: [
-    {
-      clear: null
-    }
-  ]
-};
+export const initLocalData = initOptions => {
+  this.storage = {
+    name: "fbcomp-" + initOptions.type,
+    store: [
+      {
+        type: initOptions.type,
+        request: [initOptions],
+        userPref: []
+      }
+    ]
+  };
 
-export const initLocalData = type => {
-  this.storage = { name: "fbcomp-" + type };
-  getLocalData();
-  if (!this.storage.storageObject) {
-    setLocalData(defaultObject);
+  if (!getLocalData()) {
+    setLocalData(this.storage);
   }
-
   return getLocalData();
 };
 
@@ -31,13 +22,10 @@ export const setLocalData = data => {
 };
 
 export const clearLocalData = () => {
-  setLocalData(defaultObject);
+  localStorage.clear();
   return getLocalData();
 };
 
 export const getLocalData = () => {
-  this.storage.storageObject = JSON.parse(
-    localStorage.getItem(this.storage.name)
-  );
-  return this.storage;
+  return JSON.parse(localStorage.getItem(this.storage.name));
 };
