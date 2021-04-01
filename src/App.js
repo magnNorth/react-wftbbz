@@ -13,8 +13,9 @@ export default function App(dataattr) {
   initLocalData(dataattr.type);
 
   useEffect(() => {
+    console.log("effect");
     getData().then(d => {
-      setDataAcq(d);
+      // setDataAcq(d);
     });
   });
 
@@ -25,7 +26,7 @@ export default function App(dataattr) {
   }
 
   function clearlocal(e) {
-    console.log("clear");
+    //  console.log("clear");
     clearLocalData();
   }
 
