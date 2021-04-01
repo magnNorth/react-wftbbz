@@ -3,7 +3,7 @@ import React from "react";
 export default function Event(list) {
   let results = list.results;
   return (
-    <div class="boxes-event__items-outer">
+    <div className="boxes-event__items-outer">
       {results.map(function(d, i) {
         var a = new Date(d.date * 1000);
         var months = [
