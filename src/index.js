@@ -2,5 +2,5 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
-
-ReactDOM.render(<App />, document.getElementById("root"));
+let componentRoot = document.getElementsByTagName("fb-component")[0];
+ReactDOM.render(<App type={componentRoot.dataset.type} />, componentRoot);
