@@ -42,12 +42,28 @@ export default function App(dataattr) {
     //console.log("load", dataAcq.store);
   });
 
-  function createMarkup() {
-    return { __html: dataAcq.data };
+  function createBody() {
+    console.log(dataAcq.data.resultPacket.results);
+    let result = dataAcq.data.resultPacket.results;
+
+    return (
+      <ul>
+        {result.map(function(d, i) {
+          return (
+            <li key={i}>
+              <a href={d.liveUrl}>
+                <img src={d.listMetadata.image} width={200} />
+                <h2>{d.title}</h2>
+                <span>{d.listMetadata.category}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
 
   function clearlocal() {
-    //console.log("cleared");
     clearLocalData();
   }
 
@@ -56,7 +72,7 @@ export default function App(dataattr) {
     setLocalData(dataAcq.store);
   }
 
-  return setDataAcq !== false ? (
+  return dataAcq.data !== null ? (
     <div>
       <h1>Funnelback react component</h1>
       <button
@@ -68,7 +84,7 @@ export default function App(dataattr) {
         setlocal
       </button>
       <button onClick={clearlocal}>Clear</button>
-      <div dangerouslySetInnerHTML={createMarkup()} />
+      {createBody()}
     </div>
   ) : (
     <div>noData</div>

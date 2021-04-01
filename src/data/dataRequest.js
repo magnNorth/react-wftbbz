@@ -18,8 +18,9 @@ function buildURL(req) {
 
 export const getData = request =>
   fetch(buildURL(request))
-    .then(response => {
-      return response.text();
+    .then(response => response.json())
+    .then(data => {
+      return data.response;
     })
     .catch(function(err) {
       console.log("Fetch Error :-S", err);
