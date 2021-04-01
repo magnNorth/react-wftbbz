@@ -8,6 +8,8 @@ import {
   setLocalData
 } from "./storage/localStorage.js";
 
+import Events from "./events/events.js";
+
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     request: false,
@@ -42,27 +44,6 @@ export default function App(dataattr) {
     //console.log("load", dataAcq.store);
   });
 
-  function createBody() {
-    console.log(dataAcq.data.resultPacket.results);
-    let result = dataAcq.data.resultPacket.results;
-
-    return (
-      <ul>
-        {result.map(function(d, i) {
-          return (
-            <li key={i}>
-              <a href={d.liveUrl}>
-                <img src={d.listMetadata.image} width={200} />
-                <h2>{d.title}</h2>
-                <span>{d.listMetadata.category}</span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-
   function clearlocal() {
     clearLocalData();
   }
@@ -73,18 +54,20 @@ export default function App(dataattr) {
   }
 
   return dataAcq.data !== null ? (
-    <div>
-      <h1>Funnelback react component</h1>
-      <button
-        onClick={e => {
-          setlocal("an option");
-        }}
-        value={"data"}
-      >
-        setlocal
-      </button>
-      <button onClick={clearlocal}>Clear</button>
-      {createBody()}
+    <div className="container">
+
+              <Events results={dataAcq.data.resultPacket.results} />
+              <custom-panel>
+                <button
+                onClick={e => {
+                  setlocal("an option");
+                }}
+                value={"data"}
+              >
+                setlocal
+              </button>
+              <button onClick={clearlocal}>Clear</button>
+              </custom-panel>
     </div>
   ) : (
     <div>noData</div>
