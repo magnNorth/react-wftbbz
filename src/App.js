@@ -10,14 +10,21 @@ import {
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     request: false,
-    data: null
+    data: null,
+    storeage: false
   });
 
-  //initLocalData(dataattr.type);
-
   useEffect(() => {
-    console.log("effect");
+    if (!dataAcq.storeage) {
+      console.log("store");
+      setDataAcq({
+        request: dataAcq.request,
+        data: dataAcq.data,
+        storeage: initLocalData(dataattr.type)
+      });
+    }
     if (!dataAcq.request) {
+      console.log("request");
       getData().then(d => {
         setDataAcq({ request: true, data: d });
       });
