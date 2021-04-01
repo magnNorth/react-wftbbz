@@ -8,21 +8,26 @@ import {
 } from "./storage/localStorage.js";
 
 export default function App(dataattr) {
-  const [dataAcq, setDataAcq] = useState(false);
+  const [dataAcq, setDataAcq] = useState({
+    request: false,
+    data: null
+  });
 
-  initLocalData(dataattr.type);
+  //initLocalData(dataattr.type);
 
   useEffect(() => {
     console.log("effect");
-    getData().then(d => {
-      // setDataAcq(d);
-    });
+    if (!dataAcq.request) {
+      getData().then(d => {
+        setDataAcq({ request: true, data: d });
+      });
+    }
   });
 
   //setLocalData("words")
 
   function createMarkup() {
-    return { __html: dataAcq };
+    return { __html: dataAcq.data };
   }
 
   function clearlocal(e) {
