@@ -3,7 +3,7 @@ import React from "react";
 export default function EventList(list) {
   let results = list.results;
   return (
-    <div className="boxes-event__items-outer">
+    <ul className="list-event__items-outer">
       {results.map(function(d, i) {
         var a = new Date(d.date * 1000);
         var months = [
@@ -24,27 +24,19 @@ export default function EventList(list) {
         var date = a.getDate();
 
         return (
-          <div key={i} className={"boxes-event__item"}>
-            <div
-              className="boxes-event__img"
-              style={{ backgroundImage: "url(" + d.listMetadata.image + ")" }}
-            >
-              <a href={d.clickTrackingUrl}>
-                <span className="sr-only">{d.title}</span>
-              </a>
-            </div>
-            <div className="boxes-event__details">
-              <div className="boxes-event__date">
-                <span className="boxes-event__day">{date}</span>
-                <span className="boxes-event__month">{month}</span>
+          <li key={i} className={"list-event__item"}>
+            <div className="list-event__details">
+              <div className="list-event__date">
+                <span className="list-event__day">{date}</span>
+                <span className="list-event__month">{month}</span>
               </div>
-              <div className="boxes-event__item-title">
+              <div className="list-event__item-title">
                 <a href={d.clickTrackingUrl}>{d.title}</a>
               </div>
             </div>
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }
