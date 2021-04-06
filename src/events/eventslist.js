@@ -1,7 +1,7 @@
 import React from "react";
 import EventList from "./eventlist.js";
 
-import ReturnLink from "./eventcommon.js";
+import {ReturnLink} from "./../common.js";
 
 export default function EventsList(list) {
   return (

@@ -74,6 +74,24 @@ export default function App(dataattr) {
         );
         break;
 
+      case "newstile":
+        return (
+          <EventsTile
+            results={dataAcq.data.resultPacket.results}
+            options={dataattr.options}
+          />
+        );
+        break;
+
+      case "newslist":
+        return (
+          <EventsList
+            results={dataAcq.data.resultPacket.results}
+            options={dataattr.options}
+          />
+        );
+        break;
+
       default:
         return (
           <EventsTile
