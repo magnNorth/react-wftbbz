@@ -16,7 +16,7 @@ function imageStyle(im) {
   }
 }
 
-export default function EventTile(re) {
+export default function EventTileItem(re) {
   var d = re.result;
   return (
     <div className={"boxes-event__item"}>

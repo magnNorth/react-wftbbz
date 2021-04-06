@@ -1,5 +1,5 @@
 import React from "react";
-import EventTile from "./eventtile.js";
+import EventTileItem from "./eventTileItem.js";
 
 import { ReturnLink } from "./../common.js";
 
@@ -17,7 +17,7 @@ export default function EventsTile(list) {
             </div>
             <div className="boxes-event__items-outer">
               {list.results.map(function(d, i) {
-                return <EventTile key={i} result={d} />;
+                return <EventTileItem key={i} result={d} />;
               })}
             </div>
           </div>
