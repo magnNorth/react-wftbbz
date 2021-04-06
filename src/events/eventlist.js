@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Event(list) {
+export default function EventList(list) {
   let results = list.results;
   return (
     <div className="boxes-event__items-outer">

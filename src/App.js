@@ -8,7 +8,8 @@ import {
   setLocalData
 } from "./storage/localStorage.js";
 
-import Events from "./events/events.js";
+import EventsTile from "./events/eventstile.js";
+import EventsList from "./events/eventslist.js";
 
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
@@ -41,7 +42,6 @@ export default function App(dataattr) {
         });
       });
     }
-    //console.log("load", dataAcq.store);
   });
 
   function clearlocal() {
@@ -53,21 +53,52 @@ export default function App(dataattr) {
     setLocalData(dataAcq.store);
   }
 
+  function switchType(type) {
+    //console.log(type);
+    switch (type) {
+      case "eventtile":
+        return (
+          <EventsTile
+            results={dataAcq.data.resultPacket.results}
+            options={dataattr.options}
+          />
+        );
+        break;
+
+      case "eventlist":
+        return (
+          <EventsList
+            results={dataAcq.data.resultPacket.results}
+            options={dataattr.options}
+          />
+        );
+        break;
+
+      default:
+        return (
+          <EventsTile
+            results={dataAcq.data.resultPacket.results}
+            options={dataattr.options}
+          />
+        );
+    }
+  }
+
   return dataAcq.data !== null ? (
     <div className="container">
+      {dataattr.options.type ? switchType(dataattr.options.type) : null}
 
-              <Events results={dataAcq.data.resultPacket.results} />
-              <custom-panel>
-                <button
-                onClick={e => {
-                  setlocal("an option");
-                }}
-                value={"data"}
-              >
-                setlocal
-              </button>
-              <button onClick={clearlocal}>Clear</button>
-              </custom-panel>
+      <custom-panel>
+        <button
+          onClick={e => {
+            setlocal("an option");
+          }}
+          value={"data"}
+        >
+          setlocal
+        </button>
+        <button onClick={clearlocal}>Clear</button>
+      </custom-panel>
     </div>
   ) : (
     <div>noData</div>

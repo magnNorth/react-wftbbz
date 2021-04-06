@@ -1,6 +1,8 @@
 import React from "react";
-import Event from "./event.js";
-export default function Events(list) {
+import EventTile from "./eventtile.js";
+
+import ReturnLink from "./eventcommon.js"
+export default function EventsTile(list) {
   return (
     <div id="search-results-content" className="row">
       <div className="section__col section__col--left--lg section__col--nopadd section__col--left--border-right">
@@ -10,13 +12,14 @@ export default function Events(list) {
               <div className="boxes-event__title-outer">
                 <div className="boxes-event__title">What's On</div>
               </div>
+              {ReturnLink("words")}
               <div className="boxes-event__link">
                 <a href="https://www.wollongong.nsw.gov.au/whats-on/events">
                   See more events
                 </a>
               </div>
             </div>
-            <Event results={list.results} />
+            <EventTile results={list.results} />
           </div>
         </div>
       </div>
