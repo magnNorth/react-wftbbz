@@ -121,13 +121,15 @@ export default function App(dataattr) {
   }
 
   return dataAcq.data !== null ? (
-    <div className="container" id={dataAcq.userPref.name}>
-      {dataattr.options.type ? switchType(dataattr.options.type) : null}
-      <DisplayFacets
-        dataAcq={dataAcq}
-        setlocal={setlocal}
-        nameid={dataAcq.userPref.name}
-      />
+    <div className={"container-fluid"} id={dataAcq.userPref.name}>
+      <main className="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+        {dataattr.options.type ? switchType(dataattr.options.type) : null}
+        <DisplayFacets
+          dataAcq={dataAcq}
+          setlocal={setlocal}
+          nameid={dataAcq.userPref.name}
+        />
+      </main>
     </div>
   ) : (
     <div>loading</div>

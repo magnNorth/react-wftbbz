@@ -2,16 +2,21 @@ import React from "react";
 import { UnixToDayCalc, UnixToMonthCalc } from "./../common.js";
 
 function imageStyle(im) {
-  if (im.listMetadata.image) {
-    return <img className="card-img-top" src={im.listMetadata.image} />;
+  let img = im.listMetadata.image;
+  if (im.listMetadata.image === undefined || im.listMetadata.image === null) {
+    return null;
   }
+  if (Array.isArray(img)) {
+    img = img[0];
+  }
+  return <img className="card-img-top" src={img} />;
 }
 
 export default function EventTileItem(re) {
   var d = re.result;
   return (
-    
-      <div className={"card"} style={{ width: "18rem" }}>
+    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div className={"card"}>
         {imageStyle(d)}
         <div className="card-body">
           <h5 className="card-title"> {d.title}</h5>
@@ -26,6 +31,6 @@ export default function EventTileItem(re) {
           </a>
         </div>
       </div>
-
+    </div>
   );
 }

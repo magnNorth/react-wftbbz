@@ -24,16 +24,21 @@ export default function DisplayFacets(data) {
   let list = data.dataAcq.data.facets[0].allValues;
 
   return (
-    <div id={localStoreName}>
-      <button className={"showoptions "} onClick={() => checkState()}>
-        {optionsOpen.text}
-      </button>
-      <ul className={"facet-list " + optionsOpen.open}>
+    <div className="container" id={localStoreName}>
+      <div className="row">
+        <button
+          className={"btn btn-outline-primary showoptions "}
+          onClick={() => checkState()}
+        >
+          {optionsOpen.text}
+        </button>
+      </div>
+      <div className={"row facet-list " + optionsOpen.open}>
         {list.map((d, i) => {
           return (
-            <li key={i}>
+            <div className="facet-box col-sm-5 col-md-5 col-lg-5" key={i}>
               <input
-                type="checkbox"
+                type="radio"
                 id={localStoreName + d.queryStringParam}
                 onChange={e => {
                   setOptionsOpen({
@@ -49,13 +54,13 @@ export default function DisplayFacets(data) {
                 }
               />
               <label htmlFor={localStoreName + d.queryStringParam}>
-                {" "}
+                {"  "}
                 {d.label.replace(/_/g, " ")}
               </label>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }

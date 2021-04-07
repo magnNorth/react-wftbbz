@@ -3,10 +3,16 @@ import React from "react";
 export function ReturnLink(link) {
   if (link) {
     return (
-      <div className="boxes-event__link">
-        <a href={link}>See more events</a>
+      <div className="moreLink">
+        <a href={link}>See All</a>
       </div>
     );
+  }
+}
+
+export function DisplayBoxesTitle(title) {
+  if (title) {
+    return <h4 className="boxes-event__title">{title}</h4>;
   }
 }
 
