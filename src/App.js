@@ -123,9 +123,15 @@ export default function App(dataattr) {
   return dataAcq.data !== null ? (
     <div className="container">
       {dataattr.options.type ? switchType(dataattr.options.type) : null}
+      <DisplayFacets dataAcq={dataAcq} setlocal={setlocal} />     
+    </div>
+  ) : (
+    <div>loading</div>
+  );
+}
 
-      <DisplayFacets dataAcq={dataAcq} setlocal={setlocal} />
-      <custom-panel>
+
+/**<custom-panel>
         <button
           onClick={e => {
             setlocal("an option");
@@ -135,9 +141,4 @@ export default function App(dataattr) {
           setlocal
         </button>
         <button onClick={clearlocal}>Clear</button>
-      </custom-panel>
-    </div>
-  ) : (
-    <div>noData</div>
-  );
-}
+      </custom-panel> */
