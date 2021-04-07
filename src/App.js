@@ -14,39 +14,42 @@ import DisplayFacets from "./facets/displayFacets.js";
 
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
-    request: false,
+    firstRun: true,
     data: null,
-    checkedLocal: false,
-    dataOptions: null,
+
+    dataOptions: dataattr.options,
     userPref: null
   });
 
   useEffect(() => {
     //load up local storage prefs
-    if (!dataAcq.checkedLocal) {
+    if (dataAcq.firstRun) {
       initLocalData(dataattr.options, dataattr.id);
       setDataAcq({
-        request: dataAcq.request,
+        request: true,
         data: dataAcq.data,
-        checkedLocal: true,
-        dataOptions: dataattr.options,
+        dataOptions: dataAcq.dataOptions,
         userPref: getLocalData()
       });
     }
 
-    if (!dataAcq.request && dataAcq.checkedLocal) {
-      //fetch Funnelback
+    //fetch from data source
+    if (dataAcq.request) {
       getData(dataAcq).then(d => {
         setDataAcq({
-          request: true,
           data: d,
-          checkedLocal: dataAcq.storage,
           dataOptions: dataAcq.dataOptions,
           userPref: dataAcq.userPref
         });
       });
 
-      console.log(dataAcq);
+      if (dataAcq.updateLocal) {
+        setDataAcq({
+          data: dataAcq.data,
+          dataOptions: dataattr.options,
+          userPref: dataattr.userPref
+        });
+      }
     }
   });
 
@@ -55,12 +58,16 @@ export default function App(dataattr) {
   }
 
   function setlocal(e) {
+    let prev = getLocalData();
+    prev.facets = e;
+    setLocalData(prev);
+
     setDataAcq({
-      request: false,
+      request: true,
       data: dataAcq.data,
       checkedLocal: dataAcq.checkedLocal,
       dataOptions: dataAcq.dataOptions,
-      userPref: e
+      userPref: prev
     });
   }
 

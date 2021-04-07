@@ -1,13 +1,12 @@
-//let fetchURL ="https://search-demo-au.funnelback.com/s/search.json?sort=date&num_ranks=3&collection=lg-events-web&query=!padrenull&profile=resident";
-
 function buildURL(req) {
-  console.log("req", req);
-  let r = req.store.store[0].request[0];
-  let f = ''//req.store.store[0].userPref;
-  //console.log("r", r);
-  //console.log("f", f);
+  let r = req.dataOptions;
+  let f = req.userPref.facets;
+
   return (
-    "https://search-demo-au.funnelback.com/s/search.json?sort=" +
+    "https://" +
+    r.server +
+    "/s/search.json?" +
+    "sort=" +
     r.sort +
     "&num_ranks=" +
     r.returnnumber +
@@ -17,6 +16,7 @@ function buildURL(req) {
     r.query +
     "&profile=" +
     r.profile +
+    "&" +
     f
   );
 }
