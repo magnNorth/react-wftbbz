@@ -21,7 +21,7 @@ export default function EventTileItem(re) {
         <div className="card-body">
           <h5 className="card-title"> {d.title}</h5>
           <p className="card-text">
-            <span className="boxes-event__day">{UnixToDayCalc(d.date)}</span>
+            <span className="boxes-event__day">{UnixToDayCalc(d.date)} </span>
             <span className="boxes-event__month">
               {UnixToMonthCalc(d.date)}
             </span>

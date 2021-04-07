@@ -45,9 +45,8 @@ for (var i = 0; i < components.length; i++) {
     );
   }
   uniqueTestID.push(components[i].id);
-  if (!testRequried(components[i].dataset)) {
-    return false;
-  }
+  testRequried(components[i].dataset);
+
   ReactDOM.render(
     <App
       key={i}

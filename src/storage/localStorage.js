@@ -6,27 +6,28 @@ let hashCode = function(s) {
 };
 
 export const initLocalData = (initOptions, id) => {
-  this.storage = {
+  let storage = {
     name:
       "fbcomp-" + initOptions.type + "-" + id + hashCode(window.location.href)
   };
 
   if (!getLocalData()) {
-    setLocalData(this.storage);
+    setLocalData(storage.name, storage);
   }
-  return getLocalData();
+  return getLocalData(storage.name);
 };
 
-export const setLocalData = data => {
-  localStorage.setItem(this.storage.name, JSON.stringify(data));
-  return getLocalData();
+export const setLocalData = (name, data) => {
+  //console.log(name, data);
+  localStorage.setItem(name, JSON.stringify(data));
+  return getLocalData(name);
 };
 
 export const clearLocalData = () => {
   localStorage.clear();
-  return getLocalData();
+  return getLocalData(name);
 };
 
-export const getLocalData = () => {
-  return JSON.parse(localStorage.getItem(this.storage.name));
+export const getLocalData = name => {
+  return JSON.parse(localStorage.getItem(name));
 };

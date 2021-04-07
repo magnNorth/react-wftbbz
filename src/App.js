@@ -57,10 +57,10 @@ export default function App(dataattr) {
     clearLocalData();
   }
 
-  function setlocal(e) {
-    let prev = getLocalData();
+  function setlocal(name, e) {
+    let prev = getLocalData(name);
     prev.facets = e;
-    setLocalData(prev);
+    setLocalData(name, prev);
 
     setDataAcq({
       request: true,
@@ -124,11 +124,13 @@ export default function App(dataattr) {
     <div className={"container-fluid"} id={dataAcq.userPref.name}>
       <main className="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
         {dataattr.options.type ? switchType(dataattr.options.type) : null}
-        <DisplayFacets
-          dataAcq={dataAcq}
-          setlocal={setlocal}
-          nameid={dataAcq.userPref.name}
-        />
+        {dataAcq.data.facets ? (
+          <DisplayFacets
+            dataAcq={dataAcq}
+            setlocal={setlocal}
+            nameid={dataAcq.userPref.name}
+          />
+        ) : null}
       </main>
     </div>
   ) : (

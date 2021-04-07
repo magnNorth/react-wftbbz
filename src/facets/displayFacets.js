@@ -45,7 +45,7 @@ export default function DisplayFacets(data) {
                     open: "true",
                     text: "Hide Options"
                   });
-                  data.setlocal(d.queryStringParam);
+                  data.setlocal(localStoreName, d.queryStringParam);
                 }}
                 checked={
                   data.dataAcq.userPref.facets === d.queryStringParam
