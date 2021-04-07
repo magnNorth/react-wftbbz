@@ -1,9 +1,11 @@
-let fetchURL =
-  "https://search-demo-au.funnelback.com/s/search.json?sort=date&num_ranks=3&collection=lg-events-web&query=!padrenull&profile=resident";
+//let fetchURL ="https://search-demo-au.funnelback.com/s/search.json?sort=date&num_ranks=3&collection=lg-events-web&query=!padrenull&profile=resident";
 
 function buildURL(req) {
-  //console.log("req", req.store[0].request[0]);
-  let r = req.store[0].request[0];
+  console.log("req", req);
+  let r = req.store.store[0].request[0];
+  let f = ''//req.store.store[0].userPref;
+  //console.log("r", r);
+  //console.log("f", f);
   return (
     "https://search-demo-au.funnelback.com/s/search.json?sort=" +
     r.sort +
@@ -14,7 +16,8 @@ function buildURL(req) {
     "&query=" +
     r.query +
     "&profile=" +
-    r.profile
+    r.profile +
+    f
   );
 }
 

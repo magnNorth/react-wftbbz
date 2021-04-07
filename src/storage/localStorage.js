@@ -8,14 +8,7 @@ let hashCode = function(s) {
 export const initLocalData = (initOptions, id) => {
   this.storage = {
     name:
-      "fbcomp-" + initOptions.type + "-" + id + hashCode(window.location.href),
-    store: [
-      {
-        type: initOptions.type,
-        request: [initOptions],
-        userPref: []
-      }
-    ]
+      "fbcomp-" + initOptions.type + "-" + id + hashCode(window.location.href)
   };
 
   if (!getLocalData()) {

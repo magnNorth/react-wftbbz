@@ -16,33 +16,37 @@ export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     request: false,
     data: null,
-    storeage: false,
-    store: null,
+    checkedLocal: false,
+    dataOptions: null,
     userPref: null
   });
 
   useEffect(() => {
     //load up local storage prefs
-    if (!dataAcq.storeage) {
+    if (!dataAcq.checkedLocal) {
       initLocalData(dataattr.options, dataattr.id);
       setDataAcq({
         request: dataAcq.request,
         data: dataAcq.data,
-        storeage: true,
-        store: getLocalData()
+        checkedLocal: true,
+        dataOptions: dataattr.options,
+        userPref: getLocalData()
       });
     }
 
-    if (!dataAcq.request && dataAcq.storeage) {
+    if (!dataAcq.request && dataAcq.checkedLocal) {
       //fetch Funnelback
-      getData(dataAcq.store).then(d => {
+      getData(dataAcq).then(d => {
         setDataAcq({
           request: true,
           data: d,
-          storeage: dataAcq.storage,
-          store: dataAcq.store
+          checkedLocal: dataAcq.storage,
+          dataOptions: dataAcq.dataOptions,
+          userPref: dataAcq.userPref
         });
       });
+
+      console.log(dataAcq);
     }
   });
 
@@ -51,14 +55,11 @@ export default function App(dataattr) {
   }
 
   function setlocal(e) {
-    console.log(dataAcq.store);
-    dataAcq.store.userPref = [e];
-    //setLocalData(dataAcq.store);
     setDataAcq({
       request: false,
       data: dataAcq.data,
-      storeage: dataAcq.storage,
-      store: dataAcq.store,
+      checkedLocal: dataAcq.checkedLocal,
+      dataOptions: dataAcq.dataOptions,
       userPref: e
     });
   }

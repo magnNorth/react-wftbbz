@@ -8,8 +8,6 @@ export default function DisplayFacets(data) {
         facets
         <ul>
           {list.map(d => {
-            console.log(d);
-
             return (
               <li>
                 <a
