@@ -2,7 +2,7 @@ import React from "react";
 import { UnixToDayCalc, UnixToMonthCalc } from "./../common.js";
 
 export default function EventList(list) {
-  console.log(list);
+  let d = list.result;
   return (
     <li className={"list-event__item"}>
       <div className="list-event__details">

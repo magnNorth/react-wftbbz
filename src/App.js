@@ -10,19 +10,21 @@ import {
 
 import EventsTile from "./events/eventstile.js";
 import EventsList from "./events/eventslist.js";
+import DisplayFacets from "./facets/displayFacets.js";
 
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     request: false,
     data: null,
     storeage: false,
-    store: null
+    store: null,
+    userPref: null
   });
 
   useEffect(() => {
     //load up local storage prefs
     if (!dataAcq.storeage) {
-      initLocalData(dataattr.options);
+      initLocalData(dataattr.options, dataattr.id);
       setDataAcq({
         request: dataAcq.request,
         data: dataAcq.data,
@@ -49,8 +51,16 @@ export default function App(dataattr) {
   }
 
   function setlocal(e) {
+    console.log(dataAcq.store);
     dataAcq.store.userPref = [e];
-    setLocalData(dataAcq.store);
+    //setLocalData(dataAcq.store);
+    setDataAcq({
+      request: false,
+      data: dataAcq.data,
+      storeage: dataAcq.storage,
+      store: dataAcq.store,
+      userPref: e
+    });
   }
 
   function switchType(type) {
@@ -106,6 +116,7 @@ export default function App(dataattr) {
     <div className="container">
       {dataattr.options.type ? switchType(dataattr.options.type) : null}
 
+      <DisplayFacets dataAcq={dataAcq} setlocal={setlocal} />
       <custom-panel>
         <button
           onClick={e => {

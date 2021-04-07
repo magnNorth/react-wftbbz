@@ -3,6 +3,14 @@ import EventTileItem from "./eventTileItem.js";
 
 import { ReturnLink } from "./../common.js";
 
+function displayBoxesTitle(title) {
+  return (
+    <div className="boxes-event__title-outer">
+      <div className="boxes-event__title">{title}</div>
+    </div>
+  );
+}
+
 export default function EventsTile(list) {
   return (
     <div id="search-results-content" className="row">
@@ -10,9 +18,9 @@ export default function EventsTile(list) {
         <div className="boxes-event">
           <div className="boxes-event__wrapper">
             <div className="boxes-event__header">
-              <div className="boxes-event__title-outer">
-                <div className="boxes-event__title">What's On</div>
-              </div>
+              {list.options.title
+                ? displayBoxesTitle(list.options.title)
+                : null}
               {ReturnLink(list.options.linkto)}
             </div>
             <div className="boxes-event__items-outer">

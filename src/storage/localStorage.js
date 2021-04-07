@@ -1,6 +1,14 @@
-export const initLocalData = initOptions => {
+let hashCode = function(s) {
+  return s.split("").reduce(function(a, b) {
+    a = (a << 5) - a + b.charCodeAt(0);
+    return a & a;
+  }, 0);
+};
+
+export const initLocalData = (initOptions, id) => {
   this.storage = {
-    name: "fbcomp-" + initOptions.type,
+    name:
+      "fbcomp-" + initOptions.type + "-" + id + hashCode(window.location.href),
     store: [
       {
         type: initOptions.type,
