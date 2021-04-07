@@ -13,22 +13,16 @@ function displayBoxesTitle(title) {
 
 export default function EventsList(list) {
   return (
-    <div id="search-results-content" className="row">
-      <div className="section__col section__col--left--lg section__col--nopadd section__col--left--border-right">
-        <div className="boxes-event">
-          <div className="boxes-event__wrapper">
-            <div className="boxes-event__header">
-              {list.options.title
-                ? displayBoxesTitle(list.options.title)
-                : null}
-              {ReturnLink(list.options.linkto)}
-            </div>
-            <ul className="list-event__items-outer">
-              {list.results.map(function(d, i) {
-                return <EventListItem key={i} result={d} />;
-              })}
-            </ul>
-          </div>
+    <div className="container">
+      <div className={"row"}>
+        {list.options.title ? displayBoxesTitle(list.options.title) : null}
+        {ReturnLink(list.options.linkto)}
+      </div>
+      <div className={"row bd-example"}>
+        <div className="list-group">
+          {list.results.map(function(d, i) {
+            return <EventListItem key={i} result={d} />;
+          })}
         </div>
       </div>
     </div>
