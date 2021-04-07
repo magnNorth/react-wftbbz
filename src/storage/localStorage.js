@@ -11,14 +11,14 @@ export const initLocalData = (initOptions, id) => {
       "fbcomp-" + initOptions.type + "-" + id + hashCode(window.location.href)
   };
 
-  if (!getLocalData()) {
+  if (!getLocalData(storage.name)) {
     setLocalData(storage.name, storage);
   }
   return getLocalData(storage.name);
 };
 
 export const setLocalData = (name, data) => {
-  //console.log(name, data);
+  console.log("set", name, data);
   localStorage.setItem(name, JSON.stringify(data));
   return getLocalData(name);
 };
@@ -29,5 +29,6 @@ export const clearLocalData = () => {
 };
 
 export const getLocalData = name => {
+  console.log("get", name);
   return JSON.parse(localStorage.getItem(name));
 };

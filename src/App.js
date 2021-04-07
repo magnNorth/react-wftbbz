@@ -22,9 +22,10 @@ export default function App(dataattr) {
 
   useEffect(() => {
     //load up local storage prefs
-    let local = initLocalData(dataattr.options, dataattr.id);
 
     if (dataAcq.firstRun) {
+      let local = initLocalData(dataattr.options, dataattr.id);
+
       setDataAcq({
         request: true,
         data: dataAcq.data,
