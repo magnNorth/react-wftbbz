@@ -1,6 +1,6 @@
 function buildURL(req) {
   let r = req.dataOptions;
-  let f = req.userPref.facets;
+  let f = req.userPref.facets ? req.userPref.facets : "";
 
   return (
     "https://" +

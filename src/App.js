@@ -16,20 +16,20 @@ export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     firstRun: true,
     data: null,
-
     dataOptions: dataattr.options,
     userPref: null
   });
 
   useEffect(() => {
     //load up local storage prefs
+    let local = initLocalData(dataattr.options, dataattr.id);
+
     if (dataAcq.firstRun) {
-      initLocalData(dataattr.options, dataattr.id);
       setDataAcq({
         request: true,
         data: dataAcq.data,
         dataOptions: dataAcq.dataOptions,
-        userPref: getLocalData()
+        userPref: local
       });
     }
 
@@ -121,24 +121,15 @@ export default function App(dataattr) {
   }
 
   return dataAcq.data !== null ? (
-    <div className="container">
+    <div className="container" id={dataAcq.userPref.name}>
       {dataattr.options.type ? switchType(dataattr.options.type) : null}
-      <DisplayFacets dataAcq={dataAcq} setlocal={setlocal} />     
+      <DisplayFacets
+        dataAcq={dataAcq}
+        setlocal={setlocal}
+        nameid={dataAcq.userPref.name}
+      />
     </div>
   ) : (
     <div>loading</div>
   );
 }
-
-
-/**<custom-panel>
-        <button
-          onClick={e => {
-            setlocal("an option");
-          }}
-          value={"data"}
-        >
-          setlocal
-        </button>
-        <button onClick={clearlocal}>Clear</button>
-      </custom-panel> */

@@ -10,7 +10,7 @@ export const initLocalData = (initOptions, id) => {
     name:
       "fbcomp-" + initOptions.type + "-" + id + hashCode(window.location.href)
   };
-console.log(getLocalData())
+
   if (!getLocalData()) {
     setLocalData(this.storage);
   }
