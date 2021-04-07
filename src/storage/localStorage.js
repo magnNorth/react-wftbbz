@@ -18,7 +18,7 @@ export const initLocalData = (initOptions, id) => {
 };
 
 export const setLocalData = (name, data) => {
-  console.log("set", name, data);
+  //console.log("set", name, data);
   localStorage.setItem(name, JSON.stringify(data));
   return getLocalData(name);
 };
@@ -29,6 +29,6 @@ export const clearLocalData = () => {
 };
 
 export const getLocalData = name => {
-  console.log("get", name);
+  //console.log("get", name);
   return JSON.parse(localStorage.getItem(name));
 };
