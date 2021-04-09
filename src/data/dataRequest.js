@@ -1,6 +1,11 @@
 function buildURL(req) {
   let r = req.dataOptions;
-  let f = req.userPref.facets ? req.userPref.facets : "";
+  let f = req.userPref.facets ? "&" + req.userPref.facets : "";
+  let qe = req.dataOptions.optionsextra
+    ? "&" + req.dataOptions.optionsextra
+    : "";
+
+  let profile = r.profile ? "&profile=" + r.profile : "";
 
   return (
     "https://" +
@@ -14,10 +19,9 @@ function buildURL(req) {
     r.collection +
     "&query=" +
     r.query +
-    "&profile=" +
-    r.profile +
-    "&" +
-    f
+    profile +
+    f +
+    qe
   );
 }
 
