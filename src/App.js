@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from "react";
-import "./style.css";
-import { getData } from "./data/dataRequest.js";
+import React, { useState, useEffect } from 'react';
+import './style.css';
+import { getData } from './data/dataRequest.js';
 import {
   initLocalData,
   clearLocalData,
   getLocalData,
-  setLocalData
-} from "./storage/localStorage.js";
+  setLocalData,
+} from './storage/localStorage.js';
 
-import EventsTile from "./events/eventstile.js";
-import EventsList from "./events/eventslist.js";
-import DisplayFacets from "./facets/displayFacets.js";
+import EventsTile from './events/eventstile.js';
+import EventsList from './events/eventslist.js';
+import DisplayFacets from './facets/displayFacets.js';
+
+import NewsTile from './news/newsTile.js';
 
 export default function App(dataattr) {
   const [dataAcq, setDataAcq] = useState({
     firstRun: true,
     data: null,
     dataOptions: dataattr.options,
-    userPref: null
+    userPref: null,
   });
- 
+
   useEffect(() => {
     //load up local storage prefs
 
@@ -30,17 +32,17 @@ export default function App(dataattr) {
         request: true,
         data: dataAcq.data,
         dataOptions: dataAcq.dataOptions,
-        userPref: local
+        userPref: local,
       });
     }
 
     //fetch from data source
     if (dataAcq.request) {
-      getData(dataAcq).then(d => {
+      getData(dataAcq).then((d) => {
         setDataAcq({
           data: d,
           dataOptions: dataAcq.dataOptions,
-          userPref: dataAcq.userPref
+          userPref: dataAcq.userPref,
         });
       });
 
@@ -48,7 +50,7 @@ export default function App(dataattr) {
         setDataAcq({
           data: dataAcq.data,
           dataOptions: dataattr.options,
-          userPref: dataattr.userPref
+          userPref: dataattr.userPref,
         });
       }
     }
@@ -68,14 +70,14 @@ export default function App(dataattr) {
       data: dataAcq.data,
       checkedLocal: dataAcq.checkedLocal,
       dataOptions: dataAcq.dataOptions,
-      userPref: prev
+      userPref: prev,
     });
   }
 
   function switchType(type) {
     //console.log(type);
     switch (type) {
-      case "eventtile":
+      case 'eventtile':
         return (
           <EventsTile
             results={dataAcq.data.resultPacket.results}
@@ -84,7 +86,7 @@ export default function App(dataattr) {
         );
         break;
 
-      case "eventlist":
+      case 'eventlist':
         return (
           <EventsList
             results={dataAcq.data.resultPacket.results}
@@ -93,16 +95,16 @@ export default function App(dataattr) {
         );
         break;
 
-      case "newstile":
+      case 'newstile':
         return (
-          <EventsTile
+          <NewsTile
             results={dataAcq.data.resultPacket.results}
             options={dataattr.options}
           />
         );
         break;
 
-      case "newslist":
+      case 'newslist':
         return (
           <EventsList
             results={dataAcq.data.resultPacket.results}
@@ -122,7 +124,7 @@ export default function App(dataattr) {
   }
 
   return dataAcq.data !== null ? (
-    <div className={"container-fluid"} id={dataAcq.userPref.name}>
+    <div className={'container-fluid'} id={dataAcq.userPref.name}>
       <main className="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
         {dataattr.options.type ? switchType(dataattr.options.type) : null}
         {dataAcq.data.facets ? (
