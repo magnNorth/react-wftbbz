@@ -19,7 +19,7 @@ export default function App(dataattr) {
     dataOptions: dataattr.options,
     userPref: null
   });
-
+ 
   useEffect(() => {
     //load up local storage prefs
 
